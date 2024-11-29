@@ -11,4 +11,4 @@ class Student(Base):
     score = Column(Float)
 
     def __repr__(self):
-        return f"<Student(id={self.id}, (name={self.name}, score={self.score})>"
+        return f"<Student(id={self.id}, name={self.name}, score={self.score})>"
