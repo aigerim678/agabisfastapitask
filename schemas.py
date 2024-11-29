@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 class StudentSchema(BaseModel):
     id: int
@@ -7,3 +7,12 @@ class StudentSchema(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+
+class ScoreUpdateSchema(BaseModel):
+    score: float = Field(..., gt=0, le=100)
+
+    
+
+
