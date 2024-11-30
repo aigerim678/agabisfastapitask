@@ -7,11 +7,18 @@ from student.models import Student, Base
 from student.schemas import ScoreUpdateSchema, StudentSchema
 from database import engine, get_db
 from student.crud import get_student_by_id, get_all_students
+from core.config import settings
+from student import router
 
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+app.include_router(
+    router,
+    prefix=settings.api.prefix
+)
 
 
 @app.get("/student/{student_id}", response_model=StudentSchema)
