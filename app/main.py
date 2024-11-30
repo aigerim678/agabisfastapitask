@@ -1,11 +1,12 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
+import uvicorn
 
-from app.models import Student, Base
-from app.schemas import ScoreUpdateSchema, StudentSchema
-from app.database import engine, get_db
-from app.crud import get_student_by_id, get_all_students
+from student.models import Student, Base
+from student.schemas import ScoreUpdateSchema, StudentSchema
+from database import engine, get_db
+from student.crud import get_student_by_id, get_all_students
 
 
 Base.metadata.create_all(bind=engine)
@@ -38,4 +39,7 @@ async def get_students(db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Students not found")
     return students
     
+
+if __name__ == "__main__":
+    uvicorn.run(app="main:app", host="0.0.0.0", port=8000, reload=True)
 
