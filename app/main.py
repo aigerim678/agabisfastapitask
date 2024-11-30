@@ -1,11 +1,11 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import List, Optional
+from typing import List
 
-from models import Student, Base
-from schemas import ScoreUpdateSchema, StudentSchema
-from database import engine, get_db
-from crud import get_student_by_id, get_all_students
+from app.models import Student, Base
+from app.schemas import ScoreUpdateSchema, StudentSchema
+from app.database import engine, get_db
+from app.crud import get_student_by_id, get_all_students
 
 
 Base.metadata.create_all(bind=engine)
