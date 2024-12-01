@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List
 import uvicorn
 
-from student.models import Student, Base
+from app.core.models import Student, Base
 from student.schemas import ScoreUpdateSchema, StudentSchema
 from database import engine, get_db
 from student.crud import get_student_by_id, get_all_students
