@@ -1,6 +1,9 @@
 from pydantic import BaseModel
 from pydantic import PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class RunConfig(BaseModel):
     host: str = "0.0.0.0"
@@ -31,3 +34,5 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+print(settings.db.url) 
