@@ -1,9 +1,10 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 import uvicorn
 
-from app.core.models import Student, Base
+from core.models import db_helper
 from student.schemas import ScoreUpdateSchema, StudentSchema
 from database import engine, get_db
 from student.crud import get_student_by_id, get_all_students
@@ -11,9 +12,16 @@ from core.config import settings
 from student import router
 
 
-Base.metadata.create_all(bind=engine)
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # startup
+    yield
+    #shutdown
+    await db_helper.dispose()
 
-app = FastAPI()
+app = FastAPI(
+    lifespan = lifespan
+)
 
 app.include_router(
     router,
